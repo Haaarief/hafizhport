@@ -7,21 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home Page | Hafizh Portofolio</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
 <body>
     <div class="bg-white">
-        <header class="absolute inset-x-0 top-0 z-50 mx-auto max-w-screen-xl">
+
+        {{-- navbar --}}
+        <header x-data="{ openSidebar: false }" class="absolute inset-x-0 top-0 z-50 mx-auto max-w-screen-xl">
             <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div class="flex lg:flex-1">
                     <a href="#" class="-m-1.5 p-1.5">
-                        <span class="sr-only">Your Company</span>
-                        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                            alt="">
+                        <span class="sr-only">Hafizhport</span>
+                        <h1 class="text-2xl font-normal"><span class="font-bold">Hafizh</span> Port</h1>
                     </a>
                 </div>
                 <div class="flex lg:hidden">
-                    <button type="button"
+                    <button @click="openSidebar = true" type="button"
                         class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
                         <span class="sr-only">Open main menu</span>
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -32,10 +35,10 @@
                     </button>
                 </div>
                 <div class="hidden lg:flex lg:gap-x-12">
-                    <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Home</a>
-                    <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Project</a>
-                    <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Blog</a>
-                    <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Contact</a>
+                    <a href="/" class="text-sm font-semibold leading-6 text-gray-900">Home</a>
+                    <a href="/project" class="text-sm font-semibold leading-6 text-gray-900">Project</a>
+                    <a href="/blog" class="text-sm font-semibold leading-6 text-gray-900">Blog</a>
+                    <a href="/contact" class="text-sm font-semibold leading-6 text-gray-900">Contact</a>
                 </div>
                 <div class="hidden lg:flex lg:flex-1 lg:justify-end">
                     <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Log in <span
@@ -43,18 +46,21 @@
                 </div>
             </nav>
             <!-- Mobile menu, show/hide based on menu open state. -->
-            <div class="lg:hidden" role="dialog" aria-modal="true">
+            <div x-show="openSidebar" x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-200"
+                x-transition:leave-end="opacity-0" class="lg:hidden" role="dialog" aria-modal="true">
                 <!-- Background backdrop, show/hide based on slide-over state. -->
                 <div class="fixed inset-0 z-50"></div>
                 <div
                     class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                     <div class="flex items-center justify-between">
                         <a href="#" class="-m-1.5 p-1.5">
-                            <span class="sr-only">Your Company</span>
-                            <img class="h-8 w-auto"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
+                            <span class="sr-only">Hafizhport</span>
+                            <h1 class="text-2xl font-normal"><span class="font-bold">Hafizh</span> Port</h1>
                         </a>
-                        <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
+                        <button @click="openSidebar = false" type="button"
+                            class="-m-2.5 rounded-md p-2.5 text-gray-700">
                             <span class="sr-only">Close menu</span>
                             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" aria-hidden="true">
@@ -65,13 +71,13 @@
                     <div class="mt-6 flow-root">
                         <div class="-my-6 divide-y divide-gray-500/10">
                             <div class="space-y-2 py-6">
-                                <a href="#"
+                                <a href="/"
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Home</a>
-                                <a href="#"
+                                <a href="project"
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Project</a>
-                                <a href="#"
+                                <a href="/blog"
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Blog</a>
-                                <a href="#"
+                                <a href="/contact"
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Contact</a>
                             </div>
                             <div class="py-6">
@@ -86,35 +92,42 @@
         </header>
 
         <div class="relative isolate px-6 pt-14 lg:px-8">
+            {{-- Blob Warna Warni --}}
             <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
                 aria-hidden="true">
                 <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
                     style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
                 </div>
             </div>
+
+            {{-- Hero Section --}}
             <div class="mx-auto max-w-xl py-32 sm:py-48 lg:py-56 -mt-2">
                 <div class="hidden sm:mb-8 sm:flex sm:justify-center">
                 </div>
                 <div class="text-center">
                     <h1
-                        class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-blue-800 md:text-4xl lg:text-2xl">
+                        class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-blue-800 md:text-4xl lg:text-4xl">
                         Hello, Im Hafizh Arief
                         Aldino <br><Span
-                            class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-800 md:text-4xl lg:text-5xl">UI/UX
-                            Designer and Graphic Designer</Span></h1>
-                    <p class="mt-6 text-lg leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt.
-                        Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
+                            class="mb-5 text-3xl font-extrabold tracking-tight leading-none text-gray-800 md:text-4xl lg:text-4xl">Photo
+                            Editor and Graphic Designer Who loves Web Design</Span></h1>
+                    <p class="mt-6 text-sm leading-6 text-gray-600">I am an Image Editor & Graphic Designer with over 5
+                        years of experience in the technology and information services industry. I specialize in editing
+                        applications such as Adobe Creative Suite and Figma. I use Adobe Photoshop on a daily basis to
+                        create layouts, infographics, flyers, and perform photo retouching.</p>
                     <div class="mt-10 flex items-center justify-center gap-x-6">
-                        <a href="#"
+                        <a href="/project"
                             class="text-white bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/30 dark:shadow-md dark:shadow-blue-500/80 font-medium rounded-xl text-sm px-7 py-2.5 text-center me-2 mb-2">
                             My Project
                         </a>
-                        <a href="#"
-                            class="text-gray-900 hover:text-gray-500 font-medium rounded-lg text-sm px-2 py-2 text-center me-2 mb-2 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800 round-sm">
+                        <a href="/contact"
+                            class="text-gray-900 hover:text-gray-500 font-medium rounded-lg text-sm -mt-2 hover:underline ">
                             Contact Me <span aria-hidden="true">→</span></a>
                     </div>
                 </div>
             </div>
+
+            {{-- Blob Warna Warni --}}
             <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
                 aria-hidden="true">
                 <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
@@ -123,13 +136,15 @@
             </div>
         </div>
     </div>
+
+
     {{-- Footer --}}
-    <footer class="bg-gray-50 dark:bg-gray-800 antialiased">
+    <footer class="bg-gray-50  antialiased">
         <div class="p-4 py-6 mx-auto max-w-screen-xl md:p-8 lg:p-10">
             <div class="text-center">
                 <a href="#"
-                    class="flex justify-center items-center mb-5 text-2xl font-semibold text-gray-900 dark:text-white">
-                    <svg class="mr-2 h-8" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    class="flex justify-center items-center mb-5 text-2xl font-semibold text-gray-900 dark:text-gray-900">
+                    {{-- <svg class="mr-2 h-8" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M25.2696 13.126C25.1955 13.6364 24.8589 14.3299 24.4728 14.9328C23.9856 15.6936 23.2125 16.2264 22.3276 16.4114L18.43 17.2265C17.8035 17.3575 17.2355 17.6853 16.8089 18.1621L14.2533 21.0188C13.773 21.5556 13.4373 21.4276 13.4373 20.7075C13.4315 20.7342 12.1689 23.9903 15.5149 25.9202C16.8005 26.6618 18.6511 26.3953 19.9367 25.6538L26.7486 21.7247C29.2961 20.2553 31.0948 17.7695 31.6926 14.892C31.7163 14.7781 31.7345 14.6639 31.7542 14.5498L25.2696 13.126Z"
                             fill="url(#paint0_linear_11430_22515)" />
@@ -204,11 +219,11 @@
                                 <stop offset="1" stop-color="#45B2FF" />
                             </linearGradient>
                         </defs>
-                    </svg>
-                    Flowbite
+                    </svg> --}}
+                    <span class="text-2xl font-Bold">Hafizh <span class="font-normal"> port</span></span>
                 </a>
-                <span class="block text-sm text-center text-gray-500 dark:text-gray-400">© 2021-2022 <a href="#"
-                        class="hover:underline">Flowbite™</a>. All Rights Reserved.
+                <span class="block text-sm text-center text-gray-500 dark:text-gray-400">© 2024 <a href="#"
+                        class="hover:underline">HaaArief™</a>. All Rights Reserved.
                 </span>
                 <ul class="flex justify-center mt-5 space-x-5">
                     <li>
